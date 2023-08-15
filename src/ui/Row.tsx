@@ -1,14 +1,14 @@
 import { css, styled } from "styled-components";
 
 type RowProps = {
-  type?: "horisontal" | "vertical";
+  type?: "horizontal" | "vertical";
 };
 
 const Row = styled.div<RowProps>`
   display: flex;
 
   ${(props) =>
-    props.type === "horisontal" &&
+    props.type === "horizontal" &&
     css`
       justify-content: space-between;
       align-items: center;
