@@ -1,4 +1,5 @@
 import supabase from "./supabase";
+import { CabinType } from "@/types/supabase.types";
 
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
@@ -8,5 +9,5 @@ export async function getCabins() {
     throw new Error("Cabins could not be loaded");
   }
 
-  return data;
+  return data as CabinType[];
 }
