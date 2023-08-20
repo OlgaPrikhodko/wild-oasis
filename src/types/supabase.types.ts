@@ -9,6 +9,8 @@ export type CabinType = {
   regularPrice: number;
 };
 
+export type CabinFormType = Partial<CabinType>;
+
 // exported types from supabase:
 
 // export type Json =

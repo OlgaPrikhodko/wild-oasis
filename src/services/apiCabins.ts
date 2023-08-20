@@ -1,5 +1,5 @@
 import supabase from "./supabase";
-import { CabinType } from "@/types/supabase.types";
+import { CabinFormType, CabinType } from "@/types/supabase.types";
 
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
@@ -10,6 +10,20 @@ export async function getCabins() {
   }
 
   return data as CabinType[];
+}
+
+export async function createCabin(newCabin: CabinFormType) {
+  const { data, error } = await supabase
+    .from("cabins")
+    .insert([newCabin])
+    .select();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Cabin could not be created");
+  }
+
+  return data;
 }
 
 export async function deleteCabin(id: number) {
