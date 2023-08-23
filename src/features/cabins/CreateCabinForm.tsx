@@ -8,9 +8,9 @@ import { createCabin } from "@/services/apiCabins";
 import Button from "@/ui/Button";
 import FileInput from "@/ui/form/FileInput";
 import Form from "@/ui/form/Form";
+import FormRow from "@/ui/form/FormRow";
 import Input from "@/ui/form/Input";
 import Textarea from "@/ui/form/TextArea";
-import FormRow from "@/ui/form/FormRow";
 
 function CreateCabinForm() {
   const queryClient = useQueryClient();
@@ -29,7 +29,10 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data: CabinFormType) {
-    mutate(data);
+    if (!data.image || !data.image?.item(0)) return;
+
+    console.log(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors: unknown) {
@@ -115,7 +118,12 @@ function CreateCabinForm() {
       </FormRow>
 
       <FormRow label="Cabin photo">
-        <FileInput id="image" disabled={isCreating} accept="image/*" />
+        <FileInput
+          id="image"
+          disabled={isCreating}
+          accept="image/*"
+          {...register("image", { required: "This field is required" })}
+        />
       </FormRow>
 
       <FormRow>

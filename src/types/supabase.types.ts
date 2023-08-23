@@ -9,7 +9,9 @@ export type CabinType = {
   regularPrice: number;
 };
 
-export type CabinFormType = Partial<CabinType>;
+export type CabinFormType = Omit<CabinType, "image"> & {
+  image: FileList | null;
+};
 
 // exported types from supabase:
 
