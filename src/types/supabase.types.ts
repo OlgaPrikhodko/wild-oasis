@@ -9,7 +9,7 @@ export type CabinType = {
   image: string;
 };
 
-export type CabinFormType = Omit<CabinType, "image" | "id"> & {
+export type CabinFormType = Omit<CabinType, "image" | "id" | "created_at"> & {
   image: FileList | null;
 };
 

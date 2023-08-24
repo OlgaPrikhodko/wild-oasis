@@ -1,5 +1,5 @@
 import supabase, { supabaseUrl } from "./supabase";
-import { CabinType } from "@/types/supabase.types";
+import { CabinFormType, CabinType } from "@/types/supabase.types";
 
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
@@ -12,15 +12,18 @@ export async function getCabins() {
   return data as CabinType[];
 }
 
-type CabinCreateType = Omit<CabinType, "image" | "id"> & {
+type CabinCreateType = Omit<CabinFormType, "image"> & {
   image: File | string;
 };
 
 export async function createEditCabin(newCabin: CabinCreateType, id?: number) {
   let imagePath: string;
   let imageName = "NULL";
+  let hasImagePath = false;
+
   if (typeof newCabin.image === "string") {
     imagePath = newCabin.image;
+    hasImagePath = newCabin.image.startsWith(supabaseUrl);
   } else {
     imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
     imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
@@ -47,6 +50,8 @@ export async function createEditCabin(newCabin: CabinCreateType, id?: number) {
   }
 
   // upload image:
+  if (hasImagePath) return data;
+
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image);

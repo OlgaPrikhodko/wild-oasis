@@ -7,6 +7,7 @@ import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { CabinType } from "@/types/supabase.types";
 import { formatCurrency } from "@/utils/helpers";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -50,14 +51,27 @@ const Discount = styled.div`
 const CabinRow = ({ cabin }: { cabin: CabinType }) => {
   const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
   const {
     id: cabinId,
     name,
     maxCapacity,
     regularPrice,
-    image,
     discount,
+    description,
+    image,
   } = cabin;
+
+  function handleDublicate() {
+    createCabin({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      description,
+      image,
+    });
+  }
 
   return (
     <>
@@ -72,7 +86,7 @@ const CabinRow = ({ cabin }: { cabin: CabinType }) => {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={() => setShowForm((show) => !show)}>
+          <button disabled={isCreating} onClick={handleDublicate}>
             <HiSquare2Stack />
           </button>
           <button onClick={() => setShowForm((show) => !show)}>
