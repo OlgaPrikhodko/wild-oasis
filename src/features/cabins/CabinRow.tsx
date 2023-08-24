@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 import CreateCabinForm from "./CreateCabinForm";
 
@@ -58,17 +59,6 @@ const CabinRow = ({ cabin }: { cabin: CabinType }) => {
     discount,
   } = cabin;
 
-  // const queryClient = useQueryClient();
-
-  // const { isLoading: isDeleting, mutate } = useMutation({
-  //   mutationFn: (id: number) => deleteCabin(id),
-  //   onSuccess: () => {
-  //     toast.success("Cabin has been successfully deleted");
-  //     queryClient.invalidateQueries({ queryKey: ["cabins"] });
-  //   },
-  //   onError: (err: { message: string }) => toast.error(err.message),
-  // });
-
   return (
     <>
       <TableRow>
@@ -82,9 +72,14 @@ const CabinRow = ({ cabin }: { cabin: CabinType }) => {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
+          <button onClick={() => setShowForm((show) => !show)}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowForm((show) => !show)}>
+            <HiPencil />
+          </button>
           <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-            Delete
+            <HiTrash />
           </button>
         </div>
       </TableRow>
