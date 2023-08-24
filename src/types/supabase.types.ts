@@ -1,15 +1,15 @@
 export type CabinType = {
-  created_at: string;
-  description: string;
-  discount: number;
   id: number;
-  image: string;
-  maxCapacity: number;
+  created_at: string;
   name: string;
+  maxCapacity: number;
   regularPrice: number;
+  discount: number;
+  description: string;
+  image: string;
 };
 
-export type CabinFormType = Omit<CabinType, "image"> & {
+export type CabinFormType = Omit<CabinType, "image" | "id"> & {
   image: FileList | null;
 };
 

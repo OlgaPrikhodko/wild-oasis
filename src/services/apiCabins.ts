@@ -12,19 +12,36 @@ export async function getCabins() {
   return data as CabinType[];
 }
 
-type CabinCreateType = Omit<CabinType, "image"> & { image: File };
+type CabinCreateType = Omit<CabinType, "image" | "id"> & {
+  image: File | string;
+};
 
-export async function createCabin(newCabin: CabinCreateType) {
-  const imageName = `${Math.random()}-${newCabin?.image.name}`.replaceAll(
-    "/",
-    ""
-  );
+export async function createEditCabin(newCabin: CabinCreateType, id?: number) {
+  let imagePath: string;
+  let imageName = "NULL";
+  if (typeof newCabin.image === "string") {
+    imagePath = newCabin.image;
+  } else {
+    imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
+    imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  }
 
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  console.log(imagePath);
 
-  const { data, error } = await supabase
-    .from("cabins")
-    .insert([{ ...newCabin, image: imagePath }]);
+  // create/edit cabin
+  let query;
+
+  // create:
+  if (!id)
+    query = supabase.from("cabins").insert([{ ...newCabin, image: imagePath }]);
+  // edit:
+  else
+    query = supabase
+      .from("cabins")
+      .update({ ...newCabin, image: imagePath })
+      .eq("id", id);
+
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.log(error);
