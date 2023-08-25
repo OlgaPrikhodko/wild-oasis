@@ -13,6 +13,8 @@ import Settings from "@/pages/Settings";
 import Users from "@/pages/Users";
 import GlobalStyles from "./styles/globalStyles";
 import { Toaster } from "react-hot-toast";
+import { StyleSheetManager } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,24 +28,25 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
+      <StyleSheetManager shouldForwardProp={isPropValid}>
+        <GlobalStyles />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route index element={<Navigate replace to="dashboard" />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="bookings" element={<Bookings />} />
+              <Route path="cabins" element={<Cabins />} />
+              <Route path="users" element={<Users />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="account" element={<Account />} />
+            </Route>
 
-      <GlobalStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="bookings" element={<Bookings />} />
-            <Route path="cabins" element={<Cabins />} />
-            <Route path="users" element={<Users />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="account" element={<Account />} />
-          </Route>
-
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="login" element={<Login />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </StyleSheetManager>
 
       <Toaster
         position="top-center"
