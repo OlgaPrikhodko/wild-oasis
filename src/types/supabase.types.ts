@@ -13,6 +13,15 @@ export type CabinFormType = Omit<CabinType, "image" | "id" | "created_at"> & {
   image: FileList | null;
 };
 
+export type SettingsType = {
+  id: number;
+  created_at: string;
+  breakfastPrice: number;
+  maxBookingLength: number;
+  maxGuestsPerBooking: number;
+  minBookingLength: number;
+};
+
 // exported types from supabase:
 
 // export type Json =

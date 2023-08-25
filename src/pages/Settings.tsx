@@ -1,9 +1,14 @@
+import UpdateSettingsForm from "@/features/settings/UpdateSettingsForm";
 import Heading from "@/ui/Heading";
+import Row from "@/ui/Row";
 
-interface SettingsProps {}
-
-const Settings: React.FC<SettingsProps> = ({}) => {
-  return <Heading as="h1">Update hotel settings</Heading>;
+const Settings = () => {
+  return (
+    <Row>
+      <Heading as="h1">Update hotel settings</Heading>
+      <UpdateSettingsForm />
+    </Row>
+  );
 };
 
 export default Settings;
