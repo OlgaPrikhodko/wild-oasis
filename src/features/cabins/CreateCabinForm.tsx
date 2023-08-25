@@ -10,6 +10,7 @@ import Textarea from "@/ui/form/TextArea";
 import { CabinFormType, CabinType } from "@/types/supabase.types";
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
+import { CabinCreateType } from "@/services/apiCabins";
 
 function CreateCabinForm({
   cabinToEdit = null,
@@ -23,11 +24,12 @@ function CreateCabinForm({
 
   const isEditSession = cabinToEdit !== null;
 
-  const { id: editId, ...editValues } = isEditSession ? cabinToEdit : {};
+  const { id: editId = -1, ...editValues } = isEditSession ? cabinToEdit : {};
 
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
+  const { register, handleSubmit, reset, getValues, formState } =
+    useForm<CabinFormType>({
+      defaultValues: isEditSession ? editValues : {},
+    });
   const { errors } = formState;
 
   function onSubmit(data: CabinFormType) {
@@ -37,7 +39,10 @@ function CreateCabinForm({
 
     if (isEditSession)
       editCabin(
-        { newCabinData: { ...data, image }, id: editId as number },
+        {
+          newCabinData: { ...data, image } as CabinCreateType,
+          id: editId as number,
+        },
         { onSuccess: () => reset() }
       );
     else createCabin({ ...data, image }, { onSuccess: () => reset() });

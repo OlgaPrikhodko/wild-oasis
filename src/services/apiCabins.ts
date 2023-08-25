@@ -12,7 +12,7 @@ export async function getCabins() {
   return data as CabinType[];
 }
 
-type CabinCreateType = Omit<CabinFormType, "image"> & {
+export type CabinCreateType = Omit<CabinFormType, "image"> & {
   image: File | string;
 };
 
