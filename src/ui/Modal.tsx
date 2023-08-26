@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { ReactElement } from "react";
+import React, {
+  ReactElement,
+  cloneElement,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 
@@ -52,24 +58,64 @@ const Button = styled.button`
   }
 `;
 
-type ModalProps = {
-  onClose: () => void;
-  children: ReactElement;
+const modalNames = ["", "cabin-form"] as const;
+type OpenNameType = (typeof modalNames)[number];
+
+type ModalContextType = {
+  openName: OpenNameType;
+  close: () => void;
+  open: React.Dispatch<React.SetStateAction<OpenNameType>>;
 };
 
-function Modal({ onClose, children }: ModalProps) {
+const ModalContext = createContext<ModalContextType>({} as ModalContextType);
+
+function Modal({ children }: { children: React.ReactNode }) {
+  const [openName, setOpenName] = useState<OpenNameType>("");
+  const close = () => setOpenName("");
+  const open = setOpenName;
+
+  return (
+    <ModalContext.Provider value={{ openName, open, close }}>
+      {children}
+    </ModalContext.Provider>
+  );
+}
+
+type OpenType = {
+  children: React.ReactElement;
+  opens: OpenNameType;
+};
+
+function Open({ children, opens: opensWindowName }: OpenType) {
+  const { open } = useContext(ModalContext);
+
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+}
+
+type WindowProps = {
+  name: OpenNameType;
+  children: ReactElement;
+};
+function Window({ name, children }: WindowProps) {
+  const { openName, close } = useContext(ModalContext);
+
+  if (name !== openName) return null;
+
   return createPortal(
     <Overlay>
       <StyledModal>
-        <Button onClick={onClose}>
+        <Button onClick={close}>
           <HiXMark />
         </Button>
 
-        <div>{children}</div>
+        <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,
     document.body
   );
 }
+
+Modal.Open = Open;
+Modal.Window = Window;
 
 export default Modal;
