@@ -35,7 +35,7 @@ function CreateCabinForm({
   const { errors } = formState;
 
   function onSubmit(data: CabinFormType) {
-    if (!data.image || !data.image?.item(0)) return;
+    if (!data.image || !data.image[0]) return;
 
     const image = typeof data.image === "string" ? data.image : data.image[0];
 

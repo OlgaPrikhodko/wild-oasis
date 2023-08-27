@@ -60,7 +60,7 @@ const Button = styled.button`
   }
 `;
 
-const modalNames = ["", "cabin-form"] as const;
+const modalNames = ["", "cabin-form", "edit"] as const;
 type OpenNameType = (typeof modalNames)[number];
 
 type ModalContextType = {
