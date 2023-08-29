@@ -22,6 +22,40 @@ export type SettingsType = {
   minBookingLength: number;
 };
 
+export type StatusType = "unconfirmed" | "checked-in" | "checked-out";
+
+export type BookingDBType = {
+  id: number;
+  cabinPrice: number;
+  created_at: string;
+  startDate: string;
+  endDate: string;
+  numNights: number;
+  numGuests: number;
+  totalPrice: number;
+  extrasPrice: number;
+  hasBreakfast: boolean;
+  status: StatusType;
+  isPaid: boolean;
+  observations: string;
+  guestsId: number;
+  cabinId: number;
+};
+
+export type GuestType = { fullName: string; email: string };
+
+export type BookingRowType = Pick<
+  BookingDBType,
+  | "id"
+  | "created_at"
+  | "startDate"
+  | "endDate"
+  | "numNights"
+  | "numGuests"
+  | "totalPrice"
+  | "status"
+> & { guests: GuestType } & { cabins: { name: string } };
+
 // exported types from supabase:
 
 // export type Json =

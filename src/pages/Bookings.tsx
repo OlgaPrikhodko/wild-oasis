@@ -1,14 +1,17 @@
+import BookingTable from "@/features/bookings/BookingTable";
 import Heading from "@/ui/Heading";
 import Row from "@/ui/Row";
 
-interface BookingsProps {}
-
-const Bookings: React.FC<BookingsProps> = ({}) => {
+const Bookings = () => {
   return (
-    <Row type="horizontal">
-      <Heading as="h1">All bookings</Heading>
-      <p>TEST</p>
-    </Row>
+    <>
+      <Row type="horizontal">
+        <Heading as="h1">All bookings</Heading>
+        <p>TEST</p>
+      </Row>
+
+      <BookingTable />
+    </>
   );
 };
 
