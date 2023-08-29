@@ -38,7 +38,7 @@ export type BookingDBType = {
   status: StatusType;
   isPaid: boolean;
   observations: string;
-  guestsId: number;
+  guestId: number;
   cabinId: number;
 };
 
