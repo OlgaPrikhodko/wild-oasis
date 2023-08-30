@@ -8,8 +8,11 @@ export type FilterType = {
   value: string;
   method?: FilterMethodType;
 } | null;
-type SortType = { field: string; value: string };
+
+//direction: "asc" | "desc"
+type SortType = { field: string; direction: string };
 type GetBookingsProps = { filter: FilterType; sortBy?: SortType };
+// sortBy: startDate-desc startDate-asc
 
 export async function getBookings({
   filter,
@@ -22,8 +25,14 @@ export async function getBookings({
     );
 
   // FILTER
-  if (filter !== null)
-    query = query[filter.method || "eq"](filter.field, filter.value);
+  if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
+
+  // SORT
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    });
+
   const { data, error } = await query;
 
   if (error) {
