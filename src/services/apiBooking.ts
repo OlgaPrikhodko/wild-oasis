@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from "@/utils/constants";
 import supabase from "./supabase";
 import { BookingRowType } from "@/types/supabase.types";
 
@@ -11,10 +12,10 @@ export type FilterType = {
 
 //direction: "asc" | "desc"
 type SortType = { field: string; direction: string };
-type GetBookingsProps = { filter: FilterType; sortBy?: SortType };
+type GetBookingsProps = { filter: FilterType; sortBy?: SortType; page: number };
 // sortBy: startDate-desc startDate-asc
 
-export async function getBookings({ filter, sortBy }: GetBookingsProps) {
+export async function getBookings({ filter, sortBy, page }: GetBookingsProps) {
   let query = supabase
     .from("bookings")
     .select(
@@ -31,6 +32,12 @@ export async function getBookings({ filter, sortBy }: GetBookingsProps) {
       ascending: sortBy.direction === "asc",
     });
 
+  // PAGINATION
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
   const { data, error, count } = await query;
 
   if (error) {
