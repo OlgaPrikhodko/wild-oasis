@@ -22,5 +22,10 @@ export function useBookings() {
     queryFn: () => getBookings({ filter, sortBy }),
   });
 
-  return { isLoading, bookings: isSuccess ? data : [], error };
+  return {
+    isLoading,
+    bookings: isSuccess ? data.data : [],
+    error,
+    count: data?.count || 0,
+  };
 }

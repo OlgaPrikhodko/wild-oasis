@@ -14,14 +14,12 @@ type SortType = { field: string; direction: string };
 type GetBookingsProps = { filter: FilterType; sortBy?: SortType };
 // sortBy: startDate-desc startDate-asc
 
-export async function getBookings({
-  filter,
-  sortBy,
-}: GetBookingsProps): Promise<BookingRowType[]> {
+export async function getBookings({ filter, sortBy }: GetBookingsProps) {
   let query = supabase
     .from("bookings")
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
+      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)",
+      { count: "exact" }
     );
 
   // FILTER
@@ -33,12 +31,15 @@ export async function getBookings({
       ascending: sortBy.direction === "asc",
     });
 
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     console.log(error);
     throw new Error("Bookings could not be loaded");
   }
 
-  return data as unknown as BookingRowType[];
+  return { data, count: count || 0 } as unknown as {
+    data: BookingRowType[];
+    count: number;
+  };
 }
