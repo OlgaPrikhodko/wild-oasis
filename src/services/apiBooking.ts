@@ -1,6 +1,6 @@
 import { PAGE_SIZE } from "@/utils/constants";
 import supabase from "./supabase";
-import { BookingRowType } from "@/types/supabase.types";
+import { BookingDetailsType, BookingRowType } from "@/types/supabase.types";
 
 // fields "status"
 export type FilterMethodType = "eq" | "lte" | "gte";
@@ -49,4 +49,19 @@ export async function getBookings({ filter, sortBy, page }: GetBookingsProps) {
     data: BookingRowType[];
     count: number;
   };
+}
+
+export async function getBooking(id: number) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, cabins(*), guests(*)")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Bookings could not be loaded");
+  }
+
+  return data as BookingDetailsType;
 }

@@ -26,14 +26,14 @@ export type StatusType = "unconfirmed" | "checked-in" | "checked-out";
 
 export type BookingDBType = {
   id: number;
-  cabinPrice: number;
   created_at: string;
   startDate: string;
   endDate: string;
   numNights: number;
   numGuests: number;
-  totalPrice: number;
+  cabinPrice: number;
   extrasPrice: number;
+  totalPrice: number;
   hasBreakfast: boolean;
   status: StatusType;
   isPaid: boolean;
@@ -42,19 +42,26 @@ export type BookingDBType = {
   cabinId: number;
 };
 
-export type GuestType = { fullName: string; email: string };
+export type GuestDBType = {
+  id: number;
+  created_at: string;
+  fullName: string;
+  email: string;
+  countryFlag: string;
+  nationalID: string;
+  nationality: string;
+};
 
-export type BookingRowType = Pick<
-  BookingDBType,
-  | "id"
-  | "created_at"
-  | "startDate"
-  | "endDate"
-  | "numNights"
-  | "numGuests"
-  | "totalPrice"
-  | "status"
-> & { guests: GuestType } & { cabins: { name: string } };
+export type BookingDetailsType = Omit<BookingDBType, "guestId" | "cabinId"> & {
+  guests: Omit<GuestDBType, "id" | "created_at">;
+  cabins: { name: string };
+};
+
+export type GuestRowType = Pick<GuestDBType, "fullName" | "email">;
+
+export type BookingRowType = BookingDetailsType & { guests: GuestRowType } & {
+  cabins: { name: string };
+};
 
 // exported types from supabase:
 
