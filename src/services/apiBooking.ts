@@ -72,7 +72,13 @@ export async function getBooking(id: number) {
 
 export async function updateBooking(
   id: number,
-  obj: { status: StatusType; isPaid: boolean }
+  obj: {
+    status: StatusType;
+    isPaid: boolean;
+    hasBreakfast?: boolean;
+    extrasPrice?: number;
+    totalPrice?: number;
+  }
 ) {
   const { data, error } = await supabase
     .from("bookings")
