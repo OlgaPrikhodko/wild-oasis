@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { OptionType } from "./SortBy";
+import { OptionType } from "../SortBy";
 
 const StyledSelect = styled.select<{ type?: string }>`
   font-size: 1.4rem;

@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import Select from "./Select";
+import Select from "./form/Select";
 
 export type OptionType = { value: string; label: string };
 
