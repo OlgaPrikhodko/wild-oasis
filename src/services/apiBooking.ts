@@ -74,7 +74,7 @@ export async function updateBooking(
   id: number,
   obj: {
     status: StatusType;
-    isPaid: boolean;
+    isPaid?: boolean;
     hasBreakfast?: boolean;
     extrasPrice?: number;
     totalPrice?: number;

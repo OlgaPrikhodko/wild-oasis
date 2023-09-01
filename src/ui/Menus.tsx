@@ -142,9 +142,11 @@ function List({ id, children }: { id: number; children: React.ReactNode }) {
 function Button({
   icon,
   onClick,
+  disabled = false,
   children,
 }: {
   icon: JSX.Element;
+  disabled?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
 }) {
@@ -156,7 +158,7 @@ function Button({
   }
   return (
     <li>
-      <StyledButton onClick={handleClick}>
+      <StyledButton disabled={disabled} onClick={handleClick}>
         {icon}
         <span>{children}</span>
       </StyledButton>
