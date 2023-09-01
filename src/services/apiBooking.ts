@@ -1,6 +1,10 @@
 import { PAGE_SIZE } from "@/utils/constants";
 import supabase from "./supabase";
-import { BookingDetailsType, BookingRowType } from "@/types/supabase.types";
+import {
+  BookingDetailsType,
+  BookingRowType,
+  StatusType,
+} from "@/types/supabase.types";
 
 // fields "status"
 export type FilterMethodType = "eq" | "lte" | "gte";
@@ -64,4 +68,22 @@ export async function getBooking(id: number) {
   }
 
   return data as BookingDetailsType;
+}
+
+export async function updateBooking(
+  id: number,
+  obj: { status: StatusType; isPaid: boolean }
+) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(obj)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+  return data;
 }
