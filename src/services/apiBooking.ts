@@ -93,3 +93,14 @@ export async function updateBooking(
   }
   return data;
 }
+
+export async function deleteBooking(id: number) {
+  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Cabins could not be deleted");
+  }
+
+  return data;
+}
