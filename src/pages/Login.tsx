@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 
-interface LoginProps {}
+import Heading from "@/ui/Heading";
+import LoginForm from "@/features/authentication/LoginForm";
+import Logo from "@/ui/Logo";
 
 const LoginLayout = styled.main`
   min-height: 100vh;
@@ -12,8 +14,14 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-50);
 `;
 
-const Login: React.FC<LoginProps> = ({}) => {
-  return <div>Login</div>;
+const Login = () => {
+  return (
+    <LoginLayout>
+      <Logo />
+      <Heading as="h4">Log in to account</Heading>
+      <LoginForm />
+    </LoginLayout>
+  );
 };
 
 export default Login;
