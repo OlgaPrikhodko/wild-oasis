@@ -5,7 +5,7 @@ import BookingDataBox from "../bookings/BookingDataBox";
 import Button from "@/ui/Button";
 import ButtonGroup from "@/ui/ButtonGroup";
 import ButtonText from "@/ui/ButtonText";
-import Checkbox from "@/ui/Checkbox";
+import Checkbox from "@/ui/form/Checkbox";
 import Empty from "@/ui/Empty";
 import Heading from "@/ui/Heading";
 import Row from "@/ui/Row";
