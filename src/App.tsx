@@ -15,6 +15,7 @@ import Dashboard from "@/pages/Dashboard";
 import GlobalStyles from "./styles/globalStyles";
 import Login from "@/pages/Login";
 import PageNotFound from "@/pages/PageNotFound";
+import ProtectedRoute from "./ui/ProtectedRoute";
 import Settings from "@/pages/Settings";
 import Users from "@/pages/Users";
 
@@ -34,7 +35,13 @@ const App = () => {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="bookings/:bookingId" element={<Booking />} />
