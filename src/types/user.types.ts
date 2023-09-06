@@ -9,3 +9,9 @@ export type UserFormType = {
   password: string;
   passwordConfirm?: string;
 };
+
+export type UserUpdateType = {
+  fullName: string;
+  avatar: string | File | null;
+  password?: string;
+};
