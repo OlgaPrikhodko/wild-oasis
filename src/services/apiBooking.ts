@@ -5,6 +5,7 @@ import {
   BookingRowType,
   StatusType,
 } from "@/types/supabase.types";
+import { getToday } from "@/utils/helpers";
 
 // fields "status"
 export type FilterMethodType = "eq" | "lte" | "gte";
@@ -100,6 +101,40 @@ export async function deleteBooking(id: number) {
   if (error) {
     console.log(error);
     throw new Error("Cabins could not be deleted");
+  }
+
+  return data;
+}
+
+// Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
+// date: ISOString
+export async function getBookingsAfterDate(date: string) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("created_at, totalPrice, extrasPrice")
+    .gte("created_at", date)
+    .lte("created_at", getToday({ end: true }));
+
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not get loaded");
+  }
+
+  return data;
+}
+
+// Returns all STAYS that are were created after the given date
+export async function getStaysAfterDate(date: string) {
+  const { data, error } = await supabase
+    .from("bookings")
+    // .select('*')
+    .select("*, guests(fullName)")
+    .gte("startDate", date)
+    .lte("startDate", getToday());
+
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not get loaded");
   }
 
   return data;
