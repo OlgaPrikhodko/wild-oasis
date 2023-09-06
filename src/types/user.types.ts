@@ -3,20 +3,18 @@ export type LoginUserType = {
   password: string;
 };
 
-export type UserFormType = {
-  fullName: string;
-  email: string;
+export type UserPasswordType = {
   password: string;
   passwordConfirm?: string;
 };
+
+export type UserFormType = {
+  fullName: string;
+  email: string;
+} & UserPasswordType;
 
 export type UserUpdateType = {
   fullName?: string;
   avatar?: string | File | null;
   password?: string;
-};
-
-export type UserUpdatePasswordType = {
-  password: string;
-  passwordConfirm?: string;
 };
