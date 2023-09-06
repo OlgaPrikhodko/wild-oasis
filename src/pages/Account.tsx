@@ -1,5 +1,6 @@
 import Heading from "@/ui/Heading";
 import Row from "@/ui/Row";
+import UpdatePasswordForm from "@/features/authentication/UpdatePasswordForm";
 import UpdateUserDataForm from "@/features/authentication/UpdateUserDataForm";
 
 const Account = () => {
@@ -14,7 +15,7 @@ const Account = () => {
 
       <Row>
         <Heading as="h3">Update password</Heading>
-        <p>Update user password form</p>
+        <UpdatePasswordForm />
       </Row>
     </>
   );

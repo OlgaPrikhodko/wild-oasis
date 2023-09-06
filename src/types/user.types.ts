@@ -11,7 +11,12 @@ export type UserFormType = {
 };
 
 export type UserUpdateType = {
-  fullName: string;
-  avatar: string | File | null;
+  fullName?: string;
+  avatar?: string | File | null;
   password?: string;
+};
+
+export type UserUpdatePasswordType = {
+  password: string;
+  passwordConfirm?: string;
 };
