@@ -62,3 +62,8 @@ export type GuestRowType = Pick<GuestDBType, "fullName" | "email">;
 export type BookingRowType = BookingDetailsType & { guests: GuestRowType } & {
   cabins: { name: string };
 };
+
+export type BookingsAfterDateType = Pick<
+  BookingDBType,
+  "created_at" | "totalPrice" | "extrasPrice"
+>;

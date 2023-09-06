@@ -3,6 +3,7 @@ import supabase from "./supabase";
 import {
   BookingDetailsType,
   BookingRowType,
+  BookingsAfterDateType,
   StatusType,
 } from "@/types/supabase.types";
 import { getToday } from "@/utils/helpers";
@@ -120,14 +121,13 @@ export async function getBookingsAfterDate(date: string) {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  return data as unknown as BookingsAfterDateType;
 }
 
 // Returns all STAYS that are were created after the given date
 export async function getStaysAfterDate(date: string) {
   const { data, error } = await supabase
     .from("bookings")
-    // .select('*')
     .select("*, guests(fullName)")
     .gte("startDate", date)
     .lte("startDate", getToday());
@@ -137,5 +137,5 @@ export async function getStaysAfterDate(date: string) {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  return data as unknown as BookingDetailsType[];
 }
