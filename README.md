@@ -1,3 +1,28 @@
+# Technologies Stack:
+- Styled Components;
+- React ecosystem: React Query, React Hook Form, React Router, Context API;
+- other: React Icons, React Hot Toast, Rechart, date-fns;
+- backend - supabase.
+
+# Business requirements:
+
+- hotel with 8 wooden cabins;
+- custom build application to manage everithing about hotel: bookings, cabins and guests;
+- internal app that used inside hotel to check in guests as they arrive;
+- API to store data;
+- customer: facing website to book stays
+- dark/light mode
+
+# Pages 
+/bookings
+/cabins
+/dashboard
+/checkin/:bookingId
+/settings (breakfast price, min/max nights/bookings, max guests)
+/users 
+/login
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
