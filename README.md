@@ -14,13 +14,13 @@
 - dark/light mode
 
 # Pages 
-/bookings
-/cabins
-/dashboard
-/checkin/:bookingId
-/settings (breakfast price, min/max nights/bookings, max guests)
-/users 
-/login
+ /bookings <br>
+/cabins  <br>
+/dashboard  <br>
+/checkin/:bookingId  <br>
+/settings (breakfast price, min/max nights/bookings, max guests)  <br>
+/users   <br>
+/login  <br>
 
 
 # React + TypeScript + Vite
