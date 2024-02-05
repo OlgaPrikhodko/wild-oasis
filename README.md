@@ -1,10 +1,13 @@
-# Technologies Stack:
+# Wild Oasis
+React application for the small boutique hotel for managing bookings, cabins and quests.
+
+## Technologies Stack:
 - Styled Components;
 - React ecosystem: React Query, React Hook Form, React Router, Context API;
 - other: React Icons, React Hot Toast, Rechart, date-fns;
 - backend - supabase.
 
-# Business requirements:
+## Business requirements:
 
 - hotel with 8 wooden cabins;
 - custom build application to manage everithing about hotel: bookings, cabins and guests;
@@ -13,7 +16,7 @@
 - customer: facing website to book stays
 - dark/light mode
 
-# Pages 
+## Pages 
  /bookings <br>
 /cabins  <br>
 /dashboard  <br>
